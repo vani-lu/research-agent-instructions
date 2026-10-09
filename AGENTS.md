@@ -10,7 +10,7 @@ Virtual environment is at `.venv/` with Python 3.11. `pybaba` and `baba_toolkit`
 
 Run test scripts as background processes in the agent's own terminal. Redirect stdout and stderr to a log file, and report both the process ID (PID) and log-file path to the user. The agent may poll test scripts, wait for completion, and inspect their output.
 
-For production scripts, ask the user for approval before starting, since they may take a long time. An approved production script may run either in the foreground or as a background process in the agent's own terminal. If the user denies approval, provide the command line so the user can run it in another terminal.
+Production scripts may run either in the foreground or as a background process in the agent's own terminal without prior user approval.
 
 Let uv discover the virtual environment in the current or parent directory:
 
@@ -19,6 +19,12 @@ Let uv discover the virtual environment in the current or parent directory:
 ## Notebook execution
 
 Do not try to run notebooks automatically. Ask the user to run them.
+
+## Notebook output policy
+
+When creating notebooks, do not add commands that save figures or CSV files to disk (for example, `savefig` or `to_csv`), including optional export cells or disabled export switches. Display plots and tables inline.
+
+If a CSV is important enough to persist, implement its generation and saving in a standalone script. The notebook should read the CSV produced by that script for analysis or visualization.
 
 ## Git push workflow
 
@@ -35,9 +41,9 @@ When the user asks to push changes:
 
 ## Conceptual and technical terminology
 
-Use manuscript-level conceptual terminology only in draft notes (for example, `baba-experience/notes/draft-*.md`). “Operator” and “Functional Unit” are manuscript terms for L0 and L2 segments, respectively.
+Use manuscript-level conceptual terminology only in draft notes (for example, `baba-experience/notes/draft-*.md`). “Operator” and “Functional Unit” are manuscript terms for L0 and L2 segments, respectively. “Configuration” is the manuscript term for a landscape (an accessible/inaccessible interaction repertoire pair); specify the block-instance or appearance representation for each analysis; reserve it for Markdown draft notes.
 
-In scripts, code comments, identifiers, filenames, output schemas, notebooks, reports, READMEs, and non-draft technical notes, use the implementation's technical terms: `L0 segment`, `L1 segment`, `L2 segment`, `interaction`, and `operation`, as appropriate. Do not introduce “Operator” or “Functional Unit” as technical labels.
+In scripts, code comments, identifiers, filenames, output schemas, notebooks, reports, READMEs, and non-draft technical notes, use the implementation's technical terms: `L0 segment`, `L1 segment`, `L2 segment`, `interaction`, `operation`, `landscape`, `appearance_landscape`, and `attributed_niche`, as appropriate. Do not introduce “Operator”, “Functional Unit”, or “Configuration” as technical labels.
 
 Keep these distinctions explicit: an L0 segment comprises navigation actions followed by an interaction; an interaction is not the whole L0 segment; and a critical operation is an individual operation identified by its index in `Play.operation_sequence`, not an L0 segment label. Match terminology to what the code actually measures or labels.
 
@@ -46,4 +52,3 @@ Keep these distinctions explicit: an L0 segment comprises navigation actions fol
 - Use `GridState` with `config_type="dict"` for consistent block IDs in analysis
 - `GameEnv` render modes: `"human"` (matplotlib), `"play"` (interactive pygame), `"replay"` (playback)
 - Tests use plain Python `assert` statements, no pytest.
-- Read @terminology.md for common terms like Grid, Cell, Block, UID, Attention, Move, Peer.
