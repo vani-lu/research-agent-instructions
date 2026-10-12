@@ -31,8 +31,9 @@ If a CSV is important enough to persist, implement its generation and saving in 
 When the user asks to push changes:
 
 1. Stage only the requested changes.
-2. Use the `conv-commit` skill to generate the commit message.
-3. Show the proposed commit message to the user and ask for approval to commit and push. Do not commit or push until the user approves.
+2. Measure and report the uncompressed Git patch size for the changes to be pushed, including binary patches (`git diff --binary`), before asking for approval. Include any outgoing commits as well as the staged changes. Report the size in MB (1 MB = 1,000,000 bytes). If it exceeds 5 MB, list specific files or file patterns that might be better added to `.gitignore`, with brief reasons; if there are no suitable candidates, say so. Do not ignore or unstage files automatically.
+3. Use the `conv-commit` skill to generate the commit message.
+4. Show the proposed commit message to the user and ask for approval to commit and push. Do not commit or push until the user approves.
 
 ## Python code execution
 
