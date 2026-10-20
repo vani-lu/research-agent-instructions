@@ -2,6 +2,33 @@
 
 Always think and respond in English if not explicitly instructed otherwise. Use the following guidelines when working with code in this directory:
 
+## baba-experience folder structure
+
+Paths below are relative to `baba-experience/`.
+
+- `data/`: Experimental data and generated analysis inputs.
+  - `raw/`: Original behavioral logs, ratings, and participant index.
+  - `prescreen/`: Recruitment survey and Prolific exports.
+  - `organized/`: Cleaned and encoded tables before quality filtering.
+  - `interim/`: Replay data, Play pickles, segmentation, landscapes, and other intermediate artifacts.
+  - `processed/`: Analysis-ready tables and derived summaries.
+  - `archive/`: Temporary holding area for legacy outputs pending deletion while scripts are updated and rerun.
+- `scripts/`: Data extraction, replay, derivation, measurement, and validation pipelines.
+  - `state_abstraction/`: Landscape and niche derivation across representations.
+  - `debug/`: Diagnostic scripts and example plots.
+  - `tmp/`: Experimental scripts for new functionality whose long-term role is undecided. Place new exploratory scripts here until their role is established.
+- `modeling/`: Model preparation, fitting, evaluation, and comparison code.
+- `models/`: Saved model results, coefficients, diagnostics, and supporting artifacts.
+- `notebooks/figures/`: Manuscript figure preparation notebooks.
+- `notebooks/exploration/`: Exploratory notebooks with an undecided role.
+- `reference/`: Retained analyses grouped by topic; keep explanations and supporting code, notebooks, figures, and tables together.
+- `figures/`: Exported manuscript figures.
+- `demos/`: Gameplay, replay, visualization, and data-collection demonstrations.
+- `tests/`: Script and pipeline regression tests.
+
+Keep large shared data and model outputs in `data/` and `models/`;
+link them from reference topics instead of duplicating them.
+
 ## Python environment
 
 Virtual environment is at `.venv/` with Python 3.11. `pybaba` and `baba_toolkit` is already installed there (editable install). 
