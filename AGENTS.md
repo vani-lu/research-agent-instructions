@@ -35,7 +35,9 @@ Virtual environment is at `.venv/` with Python 3.11. `pybaba` and `baba_toolkit`
 
 ## Python script execution
 
-Run test scripts as background processes in the agent's own terminal. Redirect stdout and stderr to a log file, and report both the process ID (PID) and log-file path to the user. The agent may poll test scripts, wait for completion, and inspect their output.
+Run test scripts as background processes in the agent's own terminal, and report the process ID (PID) to the user. The agent may poll test scripts, wait for completion, and inspect their output.
+
+If creating a log file, place it under a `tmp/` directory in the project.
 
 Production scripts may run either in the foreground or as a background process in the agent's own terminal without prior user approval.
 
