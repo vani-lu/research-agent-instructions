@@ -79,7 +79,7 @@ Run Git commands from the affected project's Git root, or use `git -C <project-r
 When the user asks to push changes:
 
 1. Stage only the requested changes.
-2. Measure and report the uncompressed Git patch size for the changes to be pushed, including binary patches (`git diff --binary`), before asking for approval. Include any outgoing commits as well as the staged changes. Report the size in MB (1 MB = 1,000,000 bytes). If it exceeds 5 MB, list specific files or file patterns that might be better added to `.gitignore`, with brief reasons; if there are no suitable candidates, say so. Do not ignore or unstage files automatically.
+2. Before asking for approval, measure and report the uncompressed patch size of the proposed new commit: the diff from `HEAD` to the Git index, including binary patches. Measure the byte length of `git diff --cached --binary HEAD --`, not the full sizes of the affected files. A one-line edit in a large text file contributes its diff hunk, context, and patch metadata rather than the whole file. This measurement covers the proposed new commit only. Report the size in MB (1 MB = 1,000,000 bytes). If it exceeds 5 MB, list specific files or file patterns that might be better added to `.gitignore`, with brief reasons; if there are no suitable candidates, say so. Do not ignore or unstage files automatically.
 3. Use the `conv-commit` skill to generate the commit message.
 4. Show the proposed commit message to the user and ask for approval to commit and push. Do not commit or push until the user approves.
 
@@ -93,10 +93,10 @@ Run inline Python code with `uv run --no-project python -c "..."`, letting uv di
 
 In scripts, code comments, identifiers, filenames, output schemas, notebooks, reports, READMEs, and technical notes, use the implementation's technical terms: `L0 segment`, `L1 segment`, `L2 segment`, `interaction`, `operation`, `landscape`, `appearance_landscape`, and `attributed_niche`, as appropriate. Do not introduce “Operator”, “Functional Unit”, or “Configuration” as technical labels.
 
-Keep these distinctions explicit: an L0 segment comprises navigation actions followed by an interaction; an interaction is not the whole L0 segment; and a critical operation is an individual operation identified by its index in `Play.operation_sequence`, not an L0 segment label. Match terminology to what the code actually measures or labels.
+Keep these distinctions explicit: an L0 segment comprises zero or more navigation actions followed by exactly one interaction, so a single interaction can form an entire L0 segment; an interaction is the terminal action, not a label for the whole L0 segment; and a critical operation is an individual operation identified by its index in `Play.operation_sequence`, not an L0 segment label. Match terminology to what the code actually measures or labels.
 
 ## Common Patterns
 
 - Use `GridState` with `config_type="dict"` for consistent block IDs in analysis
-- `GameEnv` render modes: `"human"` (matplotlib), `"play"` (interactive pygame), `"replay"` (playback)
+- `GameEnv` render modes: `"human"` (pygame rendering), `"play"` (interactive pygame), `"replay"` (pygame playback).
 - Tests use plain Python `assert` statements, no pytest.
