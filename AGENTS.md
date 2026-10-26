@@ -25,9 +25,20 @@ Paths below are relative to `baba-experience/`.
 - `figures/`: Exported manuscript figures.
 - `demos/`: Gameplay, replay, visualization, and data-collection demonstrations.
 - `tests/`: Script and pipeline regression tests.
+- `tmp/`: Git-ignored outputs from exploratory analyses, grouped by analysis name.
 
-Keep large shared data and model outputs in `data/` and `models/`;
+Keep large shared data and model outputs from maintained pipelines in `data/` and `models/`;
 link them from reference topics instead of duplicating them.
+
+## Exploratory output policy
+
+For ad hoc analyses, diagnostics, and scripts under `scripts/tmp/`, write all generated artifacts to `baba-experience/tmp/<analysis-name>/` by default, including figures, tables, model results, manifests, caches, and logs. Keep exploratory scripts in `scripts/tmp/`, and make their default output paths temporary too. An analysis-ready table or reproducible result is not, by itself, a retained project artifact.
+
+Before running a new or existing exploratory script, inspect its output paths. Verify with `git check-ignore` that the intended output paths are ignored, and check `git ls-files` for any already-tracked files there; ignore rules do not untrack files. If a default points to a persistent output location, change it to the temporary analysis directory before running. Do not change `.gitignore` or untrack files automatically to satisfy this policy.
+
+Use `data/`, `models/`, `figures/`, or `reference/` for new retained outputs only when the user's request explicitly establishes that intent or a maintained pipeline already defines the destination. A request to calculate, compare, or draw a figure does not by itself establish retention intent. Explicit user-specified output paths take precedence. Existing maintained pipelines may continue using their established output paths when rerun within the requested scope.
+
+Do not overwrite retained outputs, move existing artifacts, or delete prior results as part of enforcing this default unless that work is within the user's requested scope.
 
 ## Python environment
 
