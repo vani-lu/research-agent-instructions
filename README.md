@@ -1,12 +1,12 @@
 # Research agent instructions
 
-This repository backs up the instructions used in `/Volumes/orico_program/research/AGENTS.md`. Edit that working file, then manually copy changes here. The `research` folder does not need to be a Git repository.
+This repository backs up the instructions used in `/Volumes/orico_program/research/AGENTS.md` and selected skills from `~/.codex/skills/`, currently `conv-commit` and `eli5`. Edit those working files, then manually copy changes here. The `research` folder does not need to be a Git repository.
 
 Remote: [research-agent-instructions](https://github.com/vani-lu/research-agent-instructions).
 
 ## Manual sync
 
-Copy the current instructions into this repository without committing or pushing:
+Copy the current instructions and skills into this repository without committing or pushing:
 
 ```sh
 ~/Documents/agent-config/sync.sh
@@ -18,12 +18,15 @@ Copy, review the diff, and confirm a commit and push:
 ~/Documents/agent-config/sync.sh --push
 ```
 
-The script asks for confirmation before committing or pushing. It commits only `AGENTS.md`, uses `docs: sync research agent instructions`, and refuses to proceed when other changes are already staged. If the file is unchanged, it can still push existing commits after confirmation. A push failure leaves the local commit available for a later retry. It does not pull or overwrite remote history; resolve any rejected push in this repository before retrying.
+The script asks for confirmation before committing or pushing. It commits only `AGENTS.md`, `skills/conv-commit/SKILL.md`, and `skills/eli5/SKILL.md`; uses `chore: sync agent configuration`; and refuses to proceed when other changes are already staged. If all three files are unchanged, it can still push existing commits after confirmation. A push failure leaves the local commit available for a later retry. It does not pull or overwrite remote history; resolve any rejected push in this repository before retrying.
 
 To use another working file:
 
 ```sh
-AGENTS_SOURCE=/absolute/path/to/AGENTS.md ~/Documents/agent-config/sync.sh --push
+AGENTS_SOURCE=/absolute/path/to/AGENTS.md \
+CONV_COMMIT_SOURCE=/absolute/path/to/SKILL.md \
+ELI5_SOURCE=/absolute/path/to/ELI5_SKILL.md \
+~/Documents/agent-config/sync.sh --push
 ```
 
 ## Save the setup files
@@ -33,7 +36,7 @@ AGENTS_SOURCE=/absolute/path/to/AGENTS.md ~/Documents/agent-config/sync.sh --pus
 ```sh
 cd ~/Documents/agent-config
 git add README.md sync.sh
-git commit -m "docs: add manual instructions sync workflow"
+git commit -m "chore: update agent configuration sync workflow"
 git push origin main
 ```
 
@@ -43,4 +46,8 @@ Review the repository copy, then copy it back when needed:
 
 ```sh
 cp ~/Documents/agent-config/AGENTS.md /Volumes/orico_program/research/AGENTS.md
+mkdir -p ~/.codex/skills/conv-commit
+cp ~/Documents/agent-config/skills/conv-commit/SKILL.md ~/.codex/skills/conv-commit/SKILL.md
+mkdir -p ~/.codex/skills/eli5
+cp ~/Documents/agent-config/skills/eli5/SKILL.md ~/.codex/skills/eli5/SKILL.md
 ```
