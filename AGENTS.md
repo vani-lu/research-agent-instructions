@@ -72,17 +72,6 @@ When creating notebooks, do not add commands that save figures or CSV files to d
 
 When a notebook needs a generated CSV, implement its generation and saving in a standalone script. Choose the script's output destination under the Exploratory output policy: temporary analyses use `<project-root>/tmp/<analysis-name>/`, while retained outputs require explicit user intent or an established maintained-pipeline destination. The notebook should read the CSV produced by that script for analysis or visualization.
 
-## Git push workflow
-
-Run Git commands from the affected project's Git root, or use `git -C <project-root>`. File arguments are relative to that Git root. When working across repositories, apply this workflow separately to each affected repository; do not assume the workspace root is a Git repository.
-
-When the user asks to push changes:
-
-1. Stage only the requested changes.
-2. Before asking for approval, measure and report the uncompressed patch size of the proposed new commit: the diff from `HEAD` to the Git index, including binary patches. Measure the byte length of `git diff --cached --binary HEAD --`, not the full sizes of the affected files. A one-line edit in a large text file contributes its diff hunk, context, and patch metadata rather than the whole file. This measurement covers the proposed new commit only. Report the size in MB (1 MB = 1,000,000 bytes). If it exceeds 5 MB, list specific files or file patterns that might be better added to `.gitignore`, with brief reasons; if there are no suitable candidates, say so. Do not ignore or unstage files automatically.
-3. Use the `conv-commit` skill to generate the commit message.
-4. Show the proposed commit message to the user and ask for approval to commit and push. Do not commit or push until the user approves.
-
 ## Python code execution
 
 Run inline Python code with `uv run --no-project python -c "..."`, letting uv discover the shared environment from the current directory or its parents.
